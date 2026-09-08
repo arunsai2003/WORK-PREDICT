@@ -1,5 +1,12 @@
 # WorkPredict Pro - Employee Productivity Analytics Dashboard
 
+[![Live Dashboard](https://img.shields.io/badge/Live%20Demo-Open%20Dashboard-blue?style=for-the-badge&logo=githubpages&logoColor=white)](https://arunsai2003.github.io/WORK-PREDICT/)
+
+> 🌐 **Official Live URL**: **[https://arunsai2003.github.io/WORK-PREDICT/](https://arunsai2003.github.io/WORK-PREDICT/)**  
+> ⚡ **Direct Access Link**: **[https://arunsai2003.github.io/WORK-PREDICT/?v=2](https://arunsai2003.github.io/WORK-PREDICT/?v=2)**
+
+# WorkPredict Pro - Employee Productivity Analytics Dashboard
+
 A professional, enterprise-grade Employee Work Prediction & Productivity Analytics web application built with **React 18**, **TypeScript**, **Tailwind CSS**, and **Vite**.
 
 ---
