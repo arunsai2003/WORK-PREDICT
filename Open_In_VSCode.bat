@@ -1,0 +1,6 @@
+@echo off
+title Opening WorkPredict in VS Code...
+cd /d "%~dp0"
+echo Opening WorkPredict Pro in Visual Studio Code...
+code .
+exit
