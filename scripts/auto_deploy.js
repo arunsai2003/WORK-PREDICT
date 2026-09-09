@@ -107,6 +107,16 @@ try {
   }
   execSync('git push origin main', { cwd: rootDir, stdio: 'inherit' });
   console.log('🎉 [Auto-Deploy] SUCCESS! GitHub Pages has been updated automatically!');
+
+  // 5. Trigger GitHub Pages build immediately via API
+  try {
+    const remoteUrl = execSync('git remote get-url origin', { cwd: rootDir }).toString();
+    const match = remoteUrl.match(/https:\/\/(ghp_[a-zA-Z0-9]+)@/);
+    if (match && match[1]) {
+      execSync(`curl.exe -s -X POST "https://api.github.com/repos/arunsai2003/WORK-PREDICT/pages/builds" -H "Authorization: token ${match[1]}"`, { cwd: rootDir });
+      console.log('📡 [Auto-Deploy] GitHub Pages rebuild triggered successfully!');
+    }
+  } catch (e) {}
 } catch (err) {
   console.error('⚠️ [Auto-Deploy] Git push requires one-time authentication.');
   throw err;
