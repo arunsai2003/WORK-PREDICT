@@ -6,6 +6,19 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
 
+// Ensure git is in PATH
+const possibleGitDirs = [
+  path.join(process.env.LOCALAPPDATA || '', 'Programs', 'Git', 'cmd'),
+  path.join(process.env.LOCALAPPDATA || '', 'Programs', 'Git', 'bin'),
+  'C:\\Program Files\\Git\\cmd',
+  'C:\\Program Files\\Git\\bin',
+];
+for (const dir of possibleGitDirs) {
+  if (fs.existsSync(dir) && !process.env.PATH.includes(dir)) {
+    process.env.PATH = `${dir};${process.env.PATH}`;
+  }
+}
+
 console.log('🚀 [Auto-Deploy] Starting automated build and deployment...');
 
 // 1. Ensure dev index.html exists for Vite build
