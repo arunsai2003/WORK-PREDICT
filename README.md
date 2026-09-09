@@ -5,8 +5,6 @@
 > 🌐 **Official Live URL**: **[https://arunsai2003.github.io/WORK-PREDICT/](https://arunsai2003.github.io/WORK-PREDICT/)**  
 > ⚡ **Direct Access Link**: **[https://arunsai2003.github.io/WORK-PREDICT/?v=2](https://arunsai2003.github.io/WORK-PREDICT/?v=2)**
 
-# WorkPredict Pro - Employee Productivity Analytics Dashboard
-
 A professional, enterprise-grade Employee Work Prediction & Productivity Analytics web application built with **React 18**, **TypeScript**, **Tailwind CSS**, and **Vite**.
 
 ---

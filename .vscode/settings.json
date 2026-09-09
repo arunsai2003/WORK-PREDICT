@@ -1,0 +1,19 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "vscode.typescript-language-features",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "tailwindCSS.includeLanguages": {
+    "typescript": "javascript",
+    "typescriptreact": "javascript"
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "terminal.integrated.profiles.windows": {
+    "PowerShell": {
+      "source": "PowerShell",
+      "args": ["-ExecutionPolicy", "Bypass"]
+    }
+  },
+  "terminal.integrated.defaultProfile.windows": "PowerShell"
+}
