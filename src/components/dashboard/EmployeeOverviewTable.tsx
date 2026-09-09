@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Users, ArrowUpRight, Maximize2 } from 'lucide-react';
+import { Users, ArrowUpRight, Maximize2, Trash2 } from 'lucide-react';
 import { Employee } from '../../types';
 
 interface EmployeeOverviewTableProps {
   employees: Employee[];
   onViewAll: () => void;
   onSelectEmployee: (emp: Employee) => void;
+  onDeleteEmployee?: (emp: Employee) => void;
   isDark: boolean;
   onMaximize?: () => void;
 }
@@ -14,6 +15,7 @@ export const EmployeeOverviewTable: React.FC<EmployeeOverviewTableProps> = ({
   employees,
   onViewAll,
   onSelectEmployee,
+  onDeleteEmployee,
   isDark,
   onMaximize
 }) => {
@@ -97,12 +99,13 @@ export const EmployeeOverviewTable: React.FC<EmployeeOverviewTableProps> = ({
               <th className="py-2.5 px-3 text-center">Current Productivity</th>
               <th className="py-2.5 px-3 text-center">Predicted (Next Month)</th>
               <th className="py-2.5 px-3 text-center">Status</th>
+              <th className="py-2.5 px-2 text-center">Action</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100 dark:divide-slate-800/40 text-xs">
             {displayed.length === 0 ? (
               <tr>
-                <td colSpan={6} className="py-8 text-center text-slate-400">
+                <td colSpan={7} className="py-8 text-center text-slate-400">
                   <p className="font-semibold text-xs mb-1">No employee records in current dataset</p>
                   <p className="text-[11px] text-slate-500">Add employees via the Data Entry tab or upload a CSV/Excel dataset to view metrics.</p>
                 </td>
@@ -151,6 +154,18 @@ export const EmployeeOverviewTable: React.FC<EmployeeOverviewTableProps> = ({
                       }`}>
                         {emp.status}
                       </span>
+                    </td>
+                    <td className="py-2 px-2 text-center" onClick={(e) => e.stopPropagation()}>
+                      {onDeleteEmployee && (
+                        <button
+                          type="button"
+                          onClick={() => onDeleteEmployee(emp)}
+                          title={`Remove ${emp.name} from dataset`}
+                          className="p-1.5 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-500/15 border border-transparent hover:border-rose-500/30 transition-all"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      )}
                     </td>
                   </tr>
                 );

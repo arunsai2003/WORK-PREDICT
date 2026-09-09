@@ -7,7 +7,8 @@ import {
   BarChart3, 
   Grid, 
   Lightbulb, 
-  Cpu
+  Cpu,
+  Trash2
 } from 'lucide-react';
 import { 
   ResponsiveContainer, 
@@ -39,6 +40,7 @@ interface MaximizedCardModalProps {
   insights: KeyInsight[];
   departments: DepartmentSummary[];
   onSelectEmployee: (emp: Employee) => void;
+  onDeleteEmployee?: (emp: Employee) => void;
   isDark: boolean;
 }
 
@@ -52,6 +54,7 @@ export const MaximizedCardModal: React.FC<MaximizedCardModalProps> = ({
   insights,
   departments,
   onSelectEmployee,
+  onDeleteEmployee,
   isDark
 }) => {
   const [tableDept, setTableDept] = useState<string>('All');
@@ -451,6 +454,7 @@ export const MaximizedCardModal: React.FC<MaximizedCardModalProps> = ({
                         <th className="p-3 text-center">Predicted</th>
                         <th className="p-3 text-center">Attendance</th>
                         <th className="p-3 text-center">Status</th>
+                        <th className="p-3 text-center">Action</th>
                       </tr>
                     </thead>
                     <tbody className={`divide-y ${isDark ? 'divide-slate-800/60' : 'divide-slate-100'}`}>
@@ -476,6 +480,18 @@ export const MaximizedCardModal: React.FC<MaximizedCardModalProps> = ({
                             }`}>
                               {emp.status}
                             </span>
+                          </td>
+                          <td className="p-3 text-center" onClick={(e) => e.stopPropagation()}>
+                            {onDeleteEmployee && (
+                              <button
+                                type="button"
+                                onClick={() => onDeleteEmployee(emp)}
+                                title={`Remove ${emp.name}`}
+                                className="p-1 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-500/15 transition-colors"
+                              >
+                                <Trash2 className="w-3.5 h-3.5" />
+                              </button>
+                            )}
                           </td>
                         </tr>
                       ))}

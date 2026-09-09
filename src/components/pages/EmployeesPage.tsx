@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { 
   Search, 
   ArrowUpDown, 
-  Download
+  Download,
+  Trash2
 } from 'lucide-react';
 import { Employee } from '../../types';
 import { downloadSampleCsv } from '../../utils/csvParser';
@@ -10,12 +11,14 @@ import { downloadSampleCsv } from '../../utils/csvParser';
 interface EmployeesPageProps {
   employees: Employee[];
   onSelectEmployee: (emp: Employee) => void;
+  onDeleteEmployee?: (emp: Employee) => void;
   isDark: boolean;
 }
 
 export const EmployeesPage: React.FC<EmployeesPageProps> = ({
   employees,
   onSelectEmployee,
+  onDeleteEmployee,
   isDark
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -154,14 +157,15 @@ export const EmployeesPage: React.FC<EmployeesPageProps> = ({
                 </th>
                 <th className="py-3 px-4 text-center">Attendance</th>
                 <th className="py-3 px-4 text-center">Status</th>
+                <th className="py-3 px-3 text-center">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800/40">
               {pageItems.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="py-12 text-center text-slate-400">
+                  <td colSpan={9} className="py-12 text-center text-slate-400">
                     <p className="font-semibold text-sm mb-1 text-slate-700 dark:text-slate-300">No employees found</p>
-                    <p className="text-xs text-slate-500">Upload a CSV or Excel workforce dataset to view employees.</p>
+                    <p className="text-xs text-slate-500">Upload a CSV or Excel workforce dataset or add employees via Data Entry.</p>
                   </td>
                 </tr>
               ) : (
@@ -196,6 +200,18 @@ export const EmployeesPage: React.FC<EmployeesPageProps> = ({
                       }`}>
                         {emp.status}
                       </span>
+                    </td>
+                    <td className="py-3 px-3 text-center" onClick={(e) => e.stopPropagation()}>
+                      {onDeleteEmployee && (
+                        <button
+                          type="button"
+                          onClick={() => onDeleteEmployee(emp)}
+                          title={`Remove ${emp.name}`}
+                          className="p-1.5 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-500/15 border border-transparent hover:border-rose-500/30 transition-all"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))

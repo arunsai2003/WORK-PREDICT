@@ -3,19 +3,22 @@ import {
   X, 
   Building2, 
   Mail, 
-  Sparkles 
+  Sparkles,
+  Trash2 
 } from 'lucide-react';
 import { Employee } from '../../types';
 
 interface EmployeeDetailModalProps {
   employee: Employee | null;
   onClose: () => void;
+  onDelete?: (employee: Employee) => void;
   isDark: boolean;
 }
 
 export const EmployeeDetailModal: React.FC<EmployeeDetailModalProps> = ({
   employee,
   onClose,
+  onDelete,
   isDark
 }) => {
   if (!employee) return null;
@@ -154,6 +157,23 @@ export const EmployeeDetailModal: React.FC<EmployeeDetailModalProps> = ({
               : 'Performance is steady and reliable. Provide targeted skill development opportunities to boost output into top tier.'}
           </p>
         </div>
+
+        {/* Footer Actions */}
+        {onDelete && (
+          <div className="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between">
+            <span className="text-[11px] text-slate-400">Manage Employee Record</span>
+            <button
+              type="button"
+              onClick={() => {
+                onDelete(employee);
+              }}
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold text-rose-500 hover:text-white hover:bg-rose-600 border border-rose-500/30 hover:border-rose-600 transition-all shadow-sm"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+              <span>Remove Employee</span>
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

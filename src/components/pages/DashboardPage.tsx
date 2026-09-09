@@ -27,6 +27,7 @@ interface DashboardPageProps {
   departments: DepartmentSummary[];
   onViewAllEmployees: () => void;
   onSelectEmployee: (emp: Employee) => void;
+  onDeleteEmployee?: (emp: Employee) => void;
   onUploadClick?: () => void;
   isDark: boolean;
 }
@@ -40,6 +41,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
   departments,
   onViewAllEmployees,
   onSelectEmployee,
+  onDeleteEmployee,
   onUploadClick,
   isDark
 }) => {
@@ -188,6 +190,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
             employees={filteredEmployees}
             onViewAll={onViewAllEmployees}
             onSelectEmployee={onSelectEmployee}
+            onDeleteEmployee={onDeleteEmployee}
             isDark={isDark}
             onMaximize={() => setMaximizedCard('employees')}
           />
@@ -220,6 +223,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
         insights={insights}
         departments={departments}
         onSelectEmployee={onSelectEmployee}
+        onDeleteEmployee={onDeleteEmployee}
         isDark={isDark}
       />
     </div>

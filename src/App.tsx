@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { CheckCircle2, X } from 'lucide-react';
 import { Sidebar } from './components/layout/Sidebar';
 import { Header } from './components/layout/Header';
 import { DashboardPage } from './components/pages/DashboardPage';
@@ -9,6 +10,7 @@ import { ReportsPage } from './components/pages/ReportsPage';
 import { SettingsPage } from './components/pages/SettingsPage';
 import { UploadModal } from './components/modals/UploadModal';
 import { EmployeeDetailModal } from './components/modals/EmployeeDetailModal';
+import { RemoveEmployeeModal } from './components/modals/RemoveEmployeeModal';
 import { AdminLogin } from './components/auth/AdminLogin';
 import { LogoutConfirmModal } from './components/auth/LogoutConfirmModal';
 import { 
@@ -37,6 +39,8 @@ export default function App() {
   const [employees, setEmployees] = useState<Employee[]>([]);
   const [monthlyTrends, setMonthlyTrends] = useState<MonthlyTrend[]>(() => computeMonthlyTrends([]));
   const [selectedEmployee, setSelectedEmployee] = useState<Employee | null>(null);
+  const [employeeToDelete, setEmployeeToDelete] = useState<Employee | null>(null);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isUploadOpen, setIsUploadOpen] = useState<boolean>(false);
 
   // Recalculate monthly trends when employees dataset changes
@@ -109,7 +113,25 @@ export default function App() {
     setEmployees(newEmployees);
   };
 
-  // Reset data handler: resets dataset to default 312 employees and standard thresholds
+  // Employee removal handlers
+  const handlePromptDelete = (emp: Employee) => {
+    setEmployeeToDelete(emp);
+  };
+
+  const handleConfirmDelete = (id: string) => {
+    const target = employees.find(e => e.id === id);
+    setEmployees(prev => prev.filter(e => e.id !== id));
+    if (selectedEmployee?.id === id) {
+      setSelectedEmployee(null);
+    }
+    setEmployeeToDelete(null);
+    if (target) {
+      setToastMessage(`Removed ${target.name} from workforce dataset`);
+      setTimeout(() => setToastMessage(null), 4000);
+    }
+  };
+
+  // Reset data handler: resets dataset to empty 0 baseline and standard thresholds
   const handleResetData = () => {
     const defaultSettings: Settings = {
       highThreshold: 80,
@@ -199,6 +221,7 @@ export default function App() {
               departments={departments}
               onViewAllEmployees={() => setCurrentTab('employees')}
               onSelectEmployee={(emp) => setSelectedEmployee(emp)}
+              onDeleteEmployee={handlePromptDelete}
               onUploadClick={() => setIsUploadOpen(true)}
               isDark={isDark}
             />
@@ -208,6 +231,7 @@ export default function App() {
             <EmployeesPage
               employees={employees}
               onSelectEmployee={(emp) => setSelectedEmployee(emp)}
+              onDeleteEmployee={handlePromptDelete}
               isDark={isDark}
             />
           )}
@@ -226,6 +250,7 @@ export default function App() {
             <DataEntryPage
               employees={employees}
               onAddEmployee={(newEmp) => setEmployees(prev => [newEmp, ...prev])}
+              onDeleteEmployee={handlePromptDelete}
               settings={settings}
               isDark={isDark}
             />
@@ -270,6 +295,16 @@ export default function App() {
       <EmployeeDetailModal
         employee={selectedEmployee}
         onClose={() => setSelectedEmployee(null)}
+        onDelete={handlePromptDelete}
+        isDark={isDark}
+      />
+
+      {/* Remove Employee Confirmation Modal */}
+      <RemoveEmployeeModal
+        employee={employeeToDelete}
+        isOpen={!!employeeToDelete}
+        onClose={() => setEmployeeToDelete(null)}
+        onConfirm={handleConfirmDelete}
         isDark={isDark}
       />
 
@@ -281,6 +316,20 @@ export default function App() {
         isDark={isDark}
         adminName={adminUser.name}
       />
+
+      {/* Floating Action Feedback Toast */}
+      {toastMessage && (
+        <div className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 rounded-2xl bg-emerald-600 text-white text-xs font-semibold shadow-xl shadow-emerald-950/40 animate-in fade-in slide-in-from-bottom-2 duration-200">
+          <CheckCircle2 className="w-4 h-4 text-white flex-shrink-0" />
+          <span>{toastMessage}</span>
+          <button 
+            onClick={() => setToastMessage(null)} 
+            className="ml-2 text-white/70 hover:text-white p-0.5 rounded-lg hover:bg-white/10 transition-colors"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )}
     </div>
   );
 }

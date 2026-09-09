@@ -18,7 +18,8 @@ import {
   ShieldAlert,
   ArrowRight,
   Sliders,
-  Check
+  Check,
+  Trash2
 } from 'lucide-react';
 import { Employee, Department, PerformanceTier, WorkAllocation, Settings } from '../../types';
 
@@ -26,6 +27,7 @@ interface DataEntryPageProps {
   employees: Employee[];
   onAddEmployee: (newEmployee: Employee) => void;
   onUpdateEmployee?: (updatedEmployee: Employee) => void;
+  onDeleteEmployee?: (emp: Employee) => void;
   settings?: Settings;
   isDark: boolean;
 }
@@ -53,6 +55,7 @@ export const DataEntryPage: React.FC<DataEntryPageProps> = ({
   employees,
   onAddEmployee,
   onUpdateEmployee,
+  onDeleteEmployee,
   settings = { highThreshold: 80, atRiskThreshold: 65, attendanceWeight: 0.3, engagementWeight: 0.3, tasksWeight: 0.4 },
   isDark
 }) => {
@@ -817,6 +820,7 @@ export const DataEntryPage: React.FC<DataEntryPageProps> = ({
                   <th className="py-3 px-3 font-semibold">Capacity</th>
                   <th className="py-3 px-3 font-semibold">Priority</th>
                   <th className="py-3 px-3 font-semibold text-right">Productivity</th>
+                  <th className="py-3 px-3 font-semibold text-center">Action</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800/60">
@@ -888,6 +892,18 @@ export const DataEntryPage: React.FC<DataEntryPageProps> = ({
                         }`}>
                           {emp.currentProductivity}%
                         </span>
+                      </td>
+                      <td className="py-3 px-3 text-center">
+                        {onDeleteEmployee && (
+                          <button
+                            type="button"
+                            onClick={() => onDeleteEmployee(emp)}
+                            title={`Remove ${emp.name}`}
+                            className="p-1.5 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-500/15 transition-all"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        )}
                       </td>
                     </tr>
                   );
