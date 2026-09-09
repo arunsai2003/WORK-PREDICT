@@ -4,6 +4,7 @@ import { Header } from './components/layout/Header';
 import { DashboardPage } from './components/pages/DashboardPage';
 import { EmployeesPage } from './components/pages/EmployeesPage';
 import { PredictionsPage } from './components/pages/PredictionsPage';
+import { DataEntryPage } from './components/pages/DataEntryPage';
 import { ReportsPage } from './components/pages/ReportsPage';
 import { SettingsPage } from './components/pages/SettingsPage';
 import { UploadModal } from './components/modals/UploadModal';
@@ -217,6 +218,15 @@ export default function App() {
               settings={settings}
               onSelectEmployee={setSelectedEmployee}
               onApplyPredictions={setEmployees}
+              isDark={isDark}
+            />
+          )}
+
+          {currentTab === 'data-entry' && (
+            <DataEntryPage
+              employees={employees}
+              onAddEmployee={(newEmp) => setEmployees(prev => [newEmp, ...prev])}
+              settings={settings}
               isDark={isDark}
             />
           )}

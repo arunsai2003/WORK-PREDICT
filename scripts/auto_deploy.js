@@ -1,4 +1,4 @@
-﻿import { execSync } from 'child_process';
+import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -82,6 +82,10 @@ console.log('✅ [Auto-Deploy] Inlined bundle generated successfully!');
 // 4. Commit and Push to GitHub
 console.log('🌐 [Auto-Deploy] Pushing directly to GitHub...');
 try {
+  const githubDir = path.join(rootDir, '.github');
+  if (fs.existsSync(githubDir)) {
+    fs.rmSync(githubDir, { recursive: true, force: true });
+  }
   execSync('git add -A', { cwd: rootDir, stdio: 'inherit' });
   try {
     execSync('git commit -m "deploy: automated dashboard update"', { cwd: rootDir, stdio: 'inherit' });

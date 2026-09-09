@@ -6,7 +6,8 @@ import {
   FileText, 
   Settings as SettingsIcon, 
   LogOut,
-  Sparkles
+  Sparkles,
+  UserPlus
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -20,6 +21,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentTab, setCurrentTab, isD
   const navItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'employees', label: 'Employees', icon: Users },
+    { id: 'data-entry', label: 'Data Entry', icon: UserPlus },
     { id: 'predictions', label: 'Predictions', icon: TrendingUp },
     { id: 'reports', label: 'Reports', icon: FileText },
     { id: 'settings', label: 'Settings', icon: SettingsIcon },
