@@ -122,7 +122,9 @@ export const KpiCards: React.FC<KpiCardsProps> = ({ kpis, isDark, onMaximize }) 
 
         <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
           <span>Workforce Benchmark</span>
-          <span className="font-semibold text-cyan-600 dark:text-cyan-400">Overall 84% Target</span>
+          <span className="font-semibold text-cyan-600 dark:text-cyan-400">
+            {kpis.totalEmployees > 0 ? `Target ${Math.max(kpis.productivity, 80)}%` : 'Benchmark: 80%+'}
+          </span>
         </div>
       </div>
 

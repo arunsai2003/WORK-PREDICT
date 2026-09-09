@@ -1,4 +1,4 @@
-﻿import { Employee, KpiMetrics, Settings, DepartmentSummary, HeatmapCell, KeyInsight, Department, MonthlyTrend } from '../types';
+import { Employee, KpiMetrics, Settings, DepartmentSummary, HeatmapCell, KeyInsight, Department, MonthlyTrend } from '../types';
 
 export const computeKpis = (
   employees: Employee[], 
@@ -177,8 +177,8 @@ export const generateDynamicInsights = (
     return [
       {
         id: 'dyn-0',
-        title: 'Workforce Dataset Awaiting Upload',
-        description: 'Upload your company CSV or Excel employee dataset to generate real-time AI productivity insights, risk alerts, and department diagnostics.',
+        title: 'Workforce Dataset Awaiting Data',
+        description: 'Add employees via the Data Entry tab or upload your company CSV/Excel employee dataset to generate real-time AI productivity insights, risk alerts, and department diagnostics.',
         category: 'trend',
         iconName: 'TrendingUp',
         iconBg: 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30',

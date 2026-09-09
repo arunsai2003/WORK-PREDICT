@@ -101,7 +101,7 @@ export const PredictionsPage: React.FC<PredictionsPageProps> = ({
 
   // Overall enterprise baseline
   const enterpriseBaseline = useMemo(() => {
-    if (employees.length === 0) return 84;
+    if (employees.length === 0) return 0;
     const sum = employees.reduce((acc, e) => acc + e.currentProductivity, 0);
     return Math.round(sum / employees.length);
   }, [employees]);

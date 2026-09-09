@@ -126,7 +126,9 @@ export const ReportsPage: React.FC<ReportsPageProps> = ({
             isDark ? 'bg-slate-900/60 border-slate-800' : 'bg-slate-50 border-slate-200'
           }`}>
             <span className="text-xs text-slate-500 dark:text-slate-400">Next Month Forecast</span>
-            <p className="text-2xl font-bold text-cyan-600 dark:text-cyan-400 mt-1">87%</p>
+            <p className="text-2xl font-bold text-cyan-600 dark:text-cyan-400 mt-1">
+              {kpis.totalEmployees > 0 ? `${Math.min(100, Math.round(kpis.productivity * 1.03))}%` : '0%'}
+            </p>
             <span className="text-[11px] text-cyan-700 dark:text-cyan-300 font-medium">Target on track</span>
           </div>
 

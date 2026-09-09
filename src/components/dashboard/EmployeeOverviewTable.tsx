@@ -104,7 +104,7 @@ export const EmployeeOverviewTable: React.FC<EmployeeOverviewTableProps> = ({
               <tr>
                 <td colSpan={6} className="py-8 text-center text-slate-400">
                   <p className="font-semibold text-xs mb-1">No employee records in current dataset</p>
-                  <p className="text-[11px] text-slate-500">Upload a CSV or Excel dataset to view individual productivity metrics.</p>
+                  <p className="text-[11px] text-slate-500">Add employees via the Data Entry tab or upload a CSV/Excel dataset to view metrics.</p>
                 </td>
               </tr>
             ) : (

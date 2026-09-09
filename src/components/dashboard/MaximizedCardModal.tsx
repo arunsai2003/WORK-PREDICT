@@ -60,6 +60,10 @@ export const MaximizedCardModal: React.FC<MaximizedCardModalProps> = ({
   const [trendView, setTrendView] = useState<'all' | 'actual' | 'forecast'>('all');
   const [insightCategory, setInsightCategory] = useState<string>('all');
 
+  const avgAttendance = employees.length ? Math.round(employees.reduce((s, e) => s + e.attendance, 0) / employees.length) : 0;
+  const avgEngagement = employees.length ? Math.round(employees.reduce((s, e) => s + e.engagement, 0) / employees.length) : 0;
+  const avgTasks = employees.length ? Math.round(employees.reduce((s, e) => s + Math.min(100, Math.round((e.tasksCompleted / (e.tasksTotal || 1)) * 100)), 0) / employees.length) : 0;
+
   if (!cardId) return null;
 
   const cardConfig = {
@@ -314,7 +318,7 @@ export const MaximizedCardModal: React.FC<MaximizedCardModalProps> = ({
                     <span className="text-xs font-bold text-slate-800 dark:text-slate-200">Task Completion Velocity (40%)</span>
                     <p className="text-[11px] text-slate-500 dark:text-slate-400">Total volume of completed milestone sprint tasks</p>
                   </div>
-                  <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400">88%</span>
+                  <span className="text-sm font-bold text-emerald-600 dark:text-emerald-400">{avgTasks}%</span>
                 </div>
 
                 <div className={`p-3.5 rounded-xl border flex justify-between items-center ${
@@ -324,7 +328,7 @@ export const MaximizedCardModal: React.FC<MaximizedCardModalProps> = ({
                     <span className="text-xs font-bold text-slate-800 dark:text-slate-200">Attendance & Punctuality (30%)</span>
                     <p className="text-[11px] text-slate-500 dark:text-slate-400">Active working day participation across logged shifts</p>
                   </div>
-                  <span className="text-sm font-bold text-cyan-600 dark:text-cyan-400">92%</span>
+                  <span className="text-sm font-bold text-cyan-600 dark:text-cyan-400">{avgAttendance}%</span>
                 </div>
 
                 <div className={`p-3.5 rounded-xl border flex justify-between items-center ${
@@ -334,7 +338,7 @@ export const MaximizedCardModal: React.FC<MaximizedCardModalProps> = ({
                     <span className="text-xs font-bold text-slate-800 dark:text-slate-200">Team Engagement & Collaboration (30%)</span>
                     <p className="text-[11px] text-slate-500 dark:text-slate-400">Peer reviews, cross-functional collaboration and feedback</p>
                   </div>
-                  <span className="text-sm font-bold text-blue-600 dark:text-blue-400">84%</span>
+                  <span className="text-sm font-bold text-blue-600 dark:text-blue-400">{avgEngagement}%</span>
                 </div>
               </div>
             </div>
